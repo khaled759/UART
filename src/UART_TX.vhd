@@ -6,11 +6,12 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 
 
 entity UART_TX is
-    generic(clk_baudrate : integer := 5208);               -- Baud rate clock cycles for 9600 baud with a 50 MHz clock
+    generic(clk_baudrate : integer := 5208;                 -- Baud rate clock cycles for 9600 baud with a 50 MHz clock
+            WIDTH : integer := 8 );               
     port(	clk : in std_logic;								-- Clock signal
             rst : in std_logic;								-- active high reset
             TX_start : in std_logic;
-            TX_data_in : in std_logic_vector(7 downto 0);	-- 8 bit data to be sent
+            TX_data_in : in std_logic_vector(WIDTH - 1 downto 0);	-- 8 bit data to be sent
             TX_data_out : out std_logic;					-- data sent through TX bus
             TX_busy : out std_logic;						-- active when transmitter is sending data
             TX_finish : out std_logic );                    -- active when transmission is finished
@@ -21,9 +22,9 @@ architecture Behavioral of UART_TX is
 
     type state_type is (IDLE_state, START_state, DATA_tx_state, STOP_state);
     signal state : state_type := IDLE_state;
-	signal count_8 : integer range 0 to 7 := 0;								-- used for counting the number of bits sent
+	signal count_8 : integer range 0 to WIDTH - 1 := 0;								-- used for counting the number of bits sent
 	signal count_clk : integer range 0 to (clk_baudrate-1) := 0;            -- to count clocks between evert tx
-	signal TX_in : std_logic_vector(7 downto 0) := (others => '0');
+	signal TX_in : std_logic_vector(WIDTH - 1 downto 0) := (others => '0');
 	signal TX_out : std_logic := '1';                                       
 	signal TX_active : std_logic := '0';                                    -- high when transmission is on
 	signal TX_end : std_logic := '0';                                       -- high if the transmission ended

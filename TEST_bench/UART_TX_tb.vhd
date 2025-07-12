@@ -9,7 +9,8 @@ architecture behavior of tb_UART_TX is
 
     -- Component Declaration
     component UART_TX
-        generic(clk_baudrate : integer := 5208);
+        generic(clk_baudrate : integer := 5208;                 -- Baud rate clock cycles for 9600 baud with a 50 MHz clock
+                WIDTH : integer := 8 ); 
         port(
             clk : in std_logic;
             rst : in std_logic;
@@ -31,12 +32,13 @@ architecture behavior of tb_UART_TX is
     signal TX_data_in  : std_logic_vector(7 downto 0) := (others => '0');
 
     constant clk_baudrate : integer := 10;  -- Use a small value for quick sim
+    constant WIDTH : integer := 8;
 
 begin
 
     -- Instantiate the UART_TX module
     uut: UART_TX
-        generic map(clk_baudrate => clk_baudrate)
+        generic map(clk_baudrate => clk_baudrate, WIDTH => WIDTH)
         port map(
             clk => clk,
             rst => rst,
