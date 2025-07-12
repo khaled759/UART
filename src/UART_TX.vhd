@@ -9,7 +9,7 @@ entity UART_TX is
     generic(clk_baudrate : integer := 5208);               -- Baud rate clock cycles for 9600 baud with a 50 MHz clock
     port(	clk : in std_logic;								-- Clock signal
             rst : in std_logic;								-- active high reset
-            TX_start : in std_logic;						-- when active start transmission
+            TX_start : in std_logic;
             TX_data_in : in std_logic_vector(7 downto 0);	-- 8 bit data to be sent
             TX_data_out : out std_logic;					-- data sent through TX bus
             TX_busy : out std_logic;						-- active when transmitter is sending data
