@@ -22,7 +22,7 @@ architecture Behavioral of UART_TX is
 
     type state_type is (IDLE_state, START_state, DATA_tx_state, STOP_state);
     signal state : state_type := IDLE_state;
-	signal count_8 : integer range 0 to WIDTH - 1 := 0;								-- used for counting the number of bits sent
+	signal count_bit : integer range 0 to WIDTH - 1 := 0;								-- used for counting the number of bits sent
 	signal count_clk : integer range 0 to (clk_baudrate-1) := 0;            -- to count clocks between evert tx
 	signal TX_in : std_logic_vector(WIDTH - 1 downto 0) := (others => '0');
 	signal TX_out : std_logic := '1';                                       
@@ -39,7 +39,7 @@ begin
     begin
         if rst = '1' then
             state <= IDLE_state;
-            count_8 <= 0;
+            count_bit <= 0;
             count_clk <= 0;
             TX_out <= '1';
             TX_active <= '0';
@@ -47,7 +47,7 @@ begin
             elsif rising_edge(clk) then
             case state is 
                 when IDLE_state => 
-                    count_8 <= 0;
+                    count_bit <= 0;
                     count_clk <= 0;
                     TX_out <= '1';
                     TX_active <= '0';
@@ -70,18 +70,18 @@ begin
                         count_clk <= 0;
                     end if;
                 when DATA_tx_state =>
-                    TX_out <= TX_in(count_8);
+                    TX_out <= TX_in(count_bit);
                     if count_clk < clk_baudrate - 1 then
                         count_clk <= count_clk + 1;
                         state <= DATA_tx_state;
                     else
                         count_clk <= 0;
-                        if count_8 < 7 then
+                        if count_bit < 7 then
                             state <= DATA_tx_state;  
-                            count_8 <= count_8 + 1;
+                            count_bit <= count_bit + 1;
                         else
                             state <= STOP_state;
-                            count_8 <= 0;
+                            count_bit <= 0;
                         end if;
                     end if;
                 when STOP_state =>
