@@ -51,7 +51,7 @@ begin
                     if count_clk = (clk_baudrate - 1) / 2 then
                         if RX_data_in = '0' then
                             count_clk <= 0;	
-					        state <= data_state;
+					        state <= DATA_rx_state;
                         else
                             state <= IDLE_state;
                         end if;
