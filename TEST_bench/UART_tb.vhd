@@ -82,17 +82,34 @@ begin
         -- Reset pulse
         wait for 100 ns;
         rst <= '0';
-
+        wait for 100 ns;
         -- Load TX data
-        TX_data_in <= "10100101"; -- A5
+        -- Send A5
+        TX_data_in <= "10100101";
         TX_start <= '1';
         wait for clk_period;
         TX_start <= '0';
+        wait until TX_finish = '1';
+        wait for 100 us;
 
-        -- Wait long enough for full transmission and reception
-        wait for 2 ms;
+        -- Send 3C
+        TX_data_in <= "00111100";
+        TX_start <= '1';
+        wait for clk_period;
+        TX_start <= '0';
+        wait until TX_finish = '1';
+        wait for 100 us;
 
-        -- End of simulation
+        -- Send FF
+        TX_data_in <= "11111111";
+        TX_start <= '1';
+        wait for clk_period;
+        TX_start <= '0';
+        wait until TX_finish = '1';
+        wait for 100 us;
+
+        -- End
+        wait for 1 ms;
         wait;
     end process;
 
