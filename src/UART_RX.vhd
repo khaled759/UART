@@ -40,7 +40,6 @@ begin
                 when IDLE_state => 
                     count_bit <= 0;
                     count_clk <= 0;
-                    RX_out <= (others => '0');
                     RX_end <= '0';
                     if RX_data_in = '0' then
                         state <= START_state;
@@ -64,7 +63,7 @@ begin
                         count_clk <= count_clk + 1;
                         state <= DATA_rx_state;
                     else
-                        RX_data_out(count_bit) <= RX_data_in;
+                        RX_out(count_bit) <= RX_data_in;
                         count_clk <= 0;
                         if count_bit < WIDTH - 1 then
                             count_bit <= count_bit + 1;
