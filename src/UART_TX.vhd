@@ -6,7 +6,7 @@ use IEEE.STD_LOGIC_ARITH.ALL;
 
 
 entity UART_TX is
-    generic(clk_baudrate : integer := 5208;);               -- Baud rate clock cycles for 9600 baud with a 50 MHz clock
+    generic(clk_baudrate : integer := 5208);               -- Baud rate clock cycles for 9600 baud with a 50 MHz clock
     port(	clk : in std_logic;								-- Clock signal
             rst : in std_logic;								-- active high reset
             TX_start : in std_logic;						-- when active start transmission
@@ -66,18 +66,18 @@ begin
                         state <= START_state;
                     else
                         state <= DATA_tx_state;
-                        count_clk = 0;
+                        count_clk <= 0;
                     end if;
                 when DATA_tx_state =>
                     TX_out <= TX_in(count_8);
                     if count_clk < clk_baudrate - 1 then
-                        count_clk = count_clk + 1;
+                        count_clk <= count_clk + 1;
                         state <= DATA_tx_state;
                     else
                         count_clk <= 0;
                         if count_8 < 7 then
                             state <= DATA_tx_state;  
-                            count_8 = count_8 + 1;
+                            count_8 <= count_8 + 1;
                         else
                             state <= STOP_state;
                             count_8 <= 0;
@@ -89,8 +89,8 @@ begin
                         count_clk <= count_clk + 1;
                         state <= STOP_state;
                     else
-                        TX_active = '0';
-                        TX_end ='1';
+                        TX_active <= '0';
+                        TX_end <= '1';
                         state <= IDLE_state;
                     end if;
 
