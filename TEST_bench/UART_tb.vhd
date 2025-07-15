@@ -78,9 +78,9 @@ begin
     stim_proc: process
     begin
         -- Reset pulse
-        wait for 100 ns;
+        wait for 10 ns;
         rst <= '0';
-        wait for 100 ns;
+        wait for 10 ns;
         -- Load TX data
         -- Send A5
         TX_data_in <= "10100101";
@@ -88,7 +88,7 @@ begin
         wait for clk_period;
         TX_start <= '0';
         wait until TX_finish = '1';
-        wait for 100 us;
+        wait for 10 ns;
 
         -- Send 3C
         TX_data_in <= "00111100";
@@ -96,7 +96,7 @@ begin
         wait for clk_period;
         TX_start <= '0';
         wait until TX_finish = '1';
-        wait for 100 us;
+        wait for 10 ns;
 
         -- Send FF
         TX_data_in <= "11111111";
@@ -104,10 +104,9 @@ begin
         wait for clk_period;
         TX_start <= '0';
         wait until TX_finish = '1';
-        wait for 100 us;
+        wait for 10 ns;
 
         -- End
-        wait for 1 ms;
         wait;
     end process;
 
