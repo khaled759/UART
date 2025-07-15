@@ -26,7 +26,6 @@ architecture Behavioral of UART_TOP_tb is
             TX_busy : out std_logic;
             TX_finish : out std_logic;
 
-            RX_data_in : in std_logic;
             RX_data_out : out std_logic_vector(7 downto 0);
             RX_finish : out std_logic
         );
@@ -40,7 +39,7 @@ architecture Behavioral of UART_TOP_tb is
     signal TX_data_out : std_logic;
     signal TX_busy     : std_logic;
     signal TX_finish   : std_logic;
-    signal RX_data_in  : std_logic;
+
     signal RX_data_out : std_logic_vector(7 downto 0);
     signal RX_finish   : std_logic;
 
@@ -70,8 +69,7 @@ begin
             TX_data_in => TX_data_in,
             TX_data_out => TX_data_out,
             TX_busy => TX_busy,
-            TX_finish => TX_finish,
-            RX_data_in => TX_data_out, 
+            TX_finish => TX_finish, 
             RX_data_out => RX_data_out,
             RX_finish => RX_finish
         );

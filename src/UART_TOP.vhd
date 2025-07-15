@@ -13,8 +13,6 @@ entity UART_TOP is
             TX_data_out : out std_logic;					
             TX_busy : out std_logic;						
             TX_finish : out std_logic;
-
-            RX_data_in : in std_logic;
             RX_data_out : out std_logic_vector(WIDTH - 1 downto 0);
             RX_finish : out std_logic );
 
