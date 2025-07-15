@@ -22,7 +22,7 @@ architecture Behavioral of UART_TX is
 
     type state_type is (IDLE_state, START_state, DATA_tx_state, STOP_state);
     signal state : state_type := IDLE_state;
-	signal count_bit : integer range 0 to WIDTH - 1 := 0;								-- used for counting the number of bits sent
+	signal count_bit : integer range 0 to WIDTH - 1 := 0;					-- used for counting the number of bits sent
 	signal count_clk : integer range 0 to (clk_baudrate-1) := 0;            -- to count clocks between evert tx
 	signal TX_in : std_logic_vector(WIDTH - 1 downto 0) := (others => '0');
 	signal TX_out : std_logic := '1';                                       
