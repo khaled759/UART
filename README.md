@@ -27,3 +27,13 @@ Output signals:
 3. UART_TOP.vhd
 Top-level module that connects the UART transmitter and receiver.
 Integrates UART_TX and UART_RX into a single design.
+
+# features
+• Programmable baud rates: 9600, 19200, 38400, 57600, 115200 bps. 
+• Programmable bus width at run time.  
+• width-N-1 format: 1 start bit, width bits data, no parity bit, 1 stop bit. 
+
+
+# HOW to run
+you can find a TCL file attached that runs the top module test bench.
+you need questa or modelsim or vivado or Quartus.
